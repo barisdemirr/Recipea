@@ -1,0 +1,168 @@
+[
+    {
+        "id": 2,
+        "title": "Avokadolu Yeşil Kase",
+        "type":"corba",
+        "img": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Avokado",
+            "Roka",
+            "Limon"
+        ],
+        "recipe": "Tüm malzemeleri doğrayıp kasede karıştırın."
+    },
+    {
+        "id": 3,
+        "title": "Zeytinyağlı Enginar",
+        "img": "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Enginar",
+            "Bezelye",
+            "Havuç"
+        ],
+        "recipe": "Enginarları limonlu suda haşlayın, garnitürle servis edin."
+    },
+    {
+        "id": 4,
+        "title": "Ispanaklı Kiş",
+        "img": "https://images.unsplash.com/photo-1565259960248-185d85c4d0b0?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Ispanak",
+            "Yumurta",
+            "Milföy"
+        ],
+        "recipe": "Milföyü kalıba yayın, harcı döküp pişirin."
+    },
+    {
+        "id": 5,
+        "title": "Brokoli Çorbası",
+        "img": "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Brokoli",
+            "Patates",
+            "Krema"
+        ],
+        "recipe": "Sebzeleri haşlayıp blenderdan geçirin, kremayı ekleyin."
+    },
+    {
+        "id": 6,
+        "title": "Naneli Limonata",
+        "img": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Limon",
+            "Taze Nane",
+            "Şeker"
+        ],
+        "recipe": "Limonları sıkın, nane ve şekerle karıştırıp soğutun."
+    },
+    {
+        "id": 7,
+        "title": "Avokadolu Yeşil Kase",
+        "img": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Avokado",
+            "Roka",
+            "Limon"
+        ],
+        "recipe": "Tüm malzemeleri doğrayıp kasede karıştırın."
+    },
+    {
+        "id": 8,
+        "title": "Zeytinyağlı Enginar",
+        "img": "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Enginar",
+            "Bezelye",
+            "Havuç"
+        ],
+        "recipe": "Enginarları limonlu suda haşlayın, garnitürle servis edin."
+    },
+    {
+        "id": 9,
+        "title": "Ispanaklı Kiş",
+        "img": "https://images.unsplash.com/photo-1565259960248-185d85c4d0b0?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Ispanak",
+            "Yumurta",
+            "Milföy"
+        ],
+        "recipe": "Milföyü kalıba yayın, harcı döküp pişirin."
+    },
+    {
+        "id": 10,
+        "title": "Brokoli Çorbası",
+        "img": "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Brokoli",
+            "Patates",
+            "Krema"
+        ],
+        "recipe": "Sebzeleri haşlayıp blenderdan geçirin, kremayı ekleyin."
+    },
+    {
+        "id": 11,
+        "title": "Naneli Limonata",
+        "img": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Limon",
+            "Taze Nane",
+            "Şeker"
+        ],
+        "recipe": "Limonları sıkın, nane ve şekerle karıştırıp soğutun."
+    },
+    {
+        "id": 12,
+        "title": "Avokadolu Yeşil Kase",
+        "img": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Avokado",
+            "Roka",
+            "Limon"
+        ],
+        "recipe": "Tüm malzemeleri doğrayıp kasede karıştırın."
+    },
+    {
+        "id": 13,
+        "title": "Zeytinyağlı Enginar",
+        "img": "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Enginar",
+            "Bezelye",
+            "Havuç"
+        ],
+        "recipe": "Enginarları limonlu suda haşlayın, garnitürle servis edin."
+    },
+    {
+        "id": 14,
+        "title": "Ispanaklı Kiş",
+        "img": "https://images.unsplash.com/photo-1565259960248-185d85c4d0b0?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Ispanak",
+            "Yumurta",
+            "Milföy"
+        ],
+        "recipe": "Milföyü kalıba yayın, harcı döküp pişirin."
+    },
+    {
+        "id": 15,
+        "title": "Brokoli Çorbası",
+        "img": "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Brokoli",
+            "Patates",
+            "Krema"
+        ],
+        "recipe": "Sebzeleri haşlayıp blenderdan geçirin, kremayı ekleyin."
+    },
+    {
+        "id": 16,
+        "title": "Naneli Limonata",
+        "img": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=500&auto=format&fit=crop",
+        "ingredients": [
+            "Limon",
+            "Taze Nane",
+            "Şeker"
+        ],
+        "recipe": "Limonları sıkın, nane ve şekerle karıştırıp soğutun."
+    }
+]
