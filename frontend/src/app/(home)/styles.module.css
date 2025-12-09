@@ -72,6 +72,7 @@
     background-color: #f1f8e9;
     padding: 15px;
     border-radius: 10px;
+    height: 174.2px;
 }
 
 .ingredientsArea h3,
@@ -122,15 +123,9 @@
     position: relative;
     margin-left: 20px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    height: 100px;
 }
 
-.ingredients a {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-}
 
 .ingredients li {
     margin-top: 10px;
@@ -142,4 +137,36 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 100px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom:-37px;
+}
+
+.navButton {
+  background-color: white;
+  border: 1px solid #c8e6c9;
+  color: #2e7d32;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navButton:hover {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.buttonBar { 
+    position: relative;
 }

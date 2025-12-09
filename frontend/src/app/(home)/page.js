@@ -1,16 +1,21 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import Link from "next/link"
 import Image from 'next/image'
 
 import styles from "./styles.module.css"
 import recipeOfTheDay from "@/mocks/recipeOfTheDay.json"
-import sliderRecipes from "@/mocks/recipes.json"
+import allRecipes from "@/mocks/recipes.json"
 
-import {Carousel} from "./_components/Carousel"
+import { Carousel } from "./_components/Carousel"
 
 
 
 export default function Home() {
+    const [ingreNumber, setIngreNumber] = useState(0);
+    let totalIngre = recipeOfTheDay.ingredients.length
+    const sliderRecipes = allRecipes.slice(0,8)
     return (
         <div className={styles.container}>
 
@@ -30,12 +35,28 @@ export default function Home() {
                             <div className={styles.ingredientsArea}>
                                 <h3>Ingredients:</h3>
                                 <ul className={styles.ingredients}>
-                                    {recipeOfTheDay.ingredients.slice(0,4).map((item, index) => (
+                                    {recipeOfTheDay.ingredients.slice(ingreNumber, ingreNumber + 4).map((item, index) => (
                                         <li key={index}>{item}</li>
                                     ))}
-                                    <hr/>
-                                    <a href="#">More than</a>
                                 </ul>
+                                <div className={styles.buttonBar}>
+                                    <hr/>
+                                    <div className={styles.buttons}>
+                                        <button onClick={() => {
+                                            if (ingreNumber - 4 >= 0) {
+                                                setIngreNumber(ingreNumber - 4)
+                                            }
+                                        }} className={styles.navButton}>
+                                        </button>
+                                        <button onClick={() => {
+                                            if (ingreNumber + 4 <= totalIngre) {
+                                                setIngreNumber(ingreNumber + 4)
+                                            }
+                                        }
+                                        } className={styles.navButton}>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className={styles.recipePreview}>

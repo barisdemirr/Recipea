@@ -12,7 +12,7 @@ function RecipeCard({recipe={}}) {
                 <p className={styles.ingredientsPreview}>
                     {recipe.ingredients.slice(0, 3).join(", ")}...
                 </p>
-                <button className={styles.detailsLink}>Go to Recipe</button>
+                <button className={styles.detailsLink}><a href={`/recipes/${recipe.id}`}>Go to the recipe</a></button>
             </div>
         </div>
     )
