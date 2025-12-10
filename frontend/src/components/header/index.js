@@ -1,6 +1,13 @@
 import React from "react";
 import Link from "next/link"
 import styles from "./styles.module.css"
+import {Poppins} from "next/font/google"
+
+const poppins = Poppins({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 function Header() {
     return (
@@ -9,12 +16,11 @@ function Header() {
                 <div className={styles.logoArea}>
                     <span className={styles.logoText}>Recipea</span>
                 </div>
-                <div className={styles.navLinks}>
+                <div className={`${styles.navLinks} ${poppins.className}`}>
                     <Link href="/">Home</Link>
                     <Link href="/recipes">Recipes</Link>
-                    <Link href="#">About</Link>
-                    <Link href="#">Log In</Link>
-                    <Link href="#">Register</Link>
+                    <Link href="/recipes/favorites">Favorites</Link>
+                    <Link href="/about">About</Link>
                 </div>
             </div>
         </nav>

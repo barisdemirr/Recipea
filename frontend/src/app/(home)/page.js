@@ -7,6 +7,7 @@ import Image from 'next/image'
 import styles from "./styles.module.css"
 import recipeOfTheDay from "@/mocks/recipeOfTheDay.json"
 import allRecipes from "@/mocks/recipes.json"
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 import { Carousel } from "./_components/Carousel"
 
@@ -47,6 +48,7 @@ export default function Home() {
                                                 setIngreNumber(ingreNumber - 4)
                                             }
                                         }} className={styles.navButton}>
+                                            <ArrowLeft size={16} />
                                         </button>
                                         <button onClick={() => {
                                             if (ingreNumber + 4 <= totalIngre) {
@@ -54,6 +56,7 @@ export default function Home() {
                                             }
                                         }
                                         } className={styles.navButton}>
+                                            <ArrowRight size={16} />
                                         </button>
                                     </div>
                                 </div>

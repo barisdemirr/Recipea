@@ -1,5 +1,6 @@
 import React from "react"
 import styles from "./styles.module.css"
+import { ArrowRight } from 'lucide-react';    
 
 function RecipeCard({recipe={}}) {
     return (
@@ -12,7 +13,7 @@ function RecipeCard({recipe={}}) {
                 <p className={styles.ingredientsPreview}>
                     {recipe.ingredients.slice(0, 3).join(", ")}...
                 </p>
-                <button className={styles.detailsLink}><a href={`/recipes/${recipe.id}`}>Go to the recipe</a></button>
+                <a href={`/recipes/${recipe.id}`} className={styles.detailsLink}>Go to recipe <ArrowRight size={16}/></a>
             </div>
         </div>
     )

@@ -1,0 +1,88 @@
+.container {
+    min-height: 100vh;
+    background-color: #f9fbf9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    padding-bottom: 60px;
+}
+
+/* Header */
+.mainContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.pageTitle {
+    font-size: 2rem;
+    color: #1b5e20;
+    margin: 0 0 10px 0;
+}
+
+.subTitle {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Grid Yapısı */
+.gridContainer {
+    display: grid;
+    /* Responsive Grid: Ekran genişliğine göre sığdığı kadar kolon açar */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+
+
+/* Boş Durum (Empty State) Tasarımı */
+.emptyState {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px dashed #e0e0e0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.emptyIconWrapper {
+    background-color: #f5f5f5;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+}
+
+.emptyState h3 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.emptyState p {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.exploreButton {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.exploreButton:hover {
+    background-color: #1b5e20;
+}
