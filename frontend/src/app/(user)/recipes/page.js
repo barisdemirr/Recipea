@@ -1,18 +1,27 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'; // URL parametrelerini okumak için
 import styles from './styles.module.css';
 import { useRouter } from 'next/navigation'
 import {RecipeCard} from "@/components/recipe-card"
-import allRecipes from "@/mocks/recipes.json"
-
+import { GetAllRecipes } from '@/services/recipes';
 
 
 const ITEMS_PER_PAGE = 6; // Her sayfada 6 kart (2 satır x 3 sütun)
 
-export default function RecipesPage() {
+export default  function RecipesPage() {
+    
+    const [allRecipes, setAllRecipes] = useState([])
+    useEffect(()=>{
+        GetAllRecipes()
+        .then(res=> {
+            setAllRecipes(res)
+        })
+        .catch(err=>console.log(`data fetching failed ${err}`))
+    }, [])
+    
     const router = useRouter()
     const searchParams = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('all');
