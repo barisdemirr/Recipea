@@ -1,5 +1,6 @@
 ﻿using backend.Data;
 using backend.DTOs.Recipe;
+using backend.Models;
 using backend.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,12 +25,31 @@ namespace backend.Services.Concrete
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Type = x.Type,
                     Img = x.Img,
                     Ingredients = x.Ingredients
                 })
                 .ToListAsync(); // Veritabanına "Select * from Recipes" sorgusu şimdi gider.
 
             return recipes;
+        }
+
+
+        public async Task<int> CreateRecipeAsync(RecipeCreateDto dto)
+        {
+            var newRecipe = new Recipe
+            {
+                Title = dto.Title,
+                Type = dto.Type,
+                Img = dto.Img,
+                Ingredients = dto.Ingredients,
+                RecipeText = dto.RecipeText
+            };
+
+            await _context.Recipes.AddAsync(newRecipe);
+
+            await _context.SaveChangesAsync();
+            return newRecipe.Id;
         }
     }
 }

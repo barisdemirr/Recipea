@@ -86,6 +86,15 @@ export default  function RecipesPage() {
                     >
                         Desserts
                     </button>
+                    <button
+                        className={`${styles.filterBtn} ${activeFilter === 'beverage' ? styles.active : ''}`}
+                        onClick={() => {
+                            setActiveFilter('beverage')
+                            router.push("/recipes")
+                        }}
+                    >
+                        Beverages
+                    </button>
                 </div>
             </div>
 

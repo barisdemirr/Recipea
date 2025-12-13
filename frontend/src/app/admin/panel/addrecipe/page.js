@@ -5,13 +5,13 @@ import { Save, Type, Image as ImageIcon, FileText, List, AlignLeft } from 'lucid
 import styles from './styles.module.css';
 
 export default function AddRecipe() {
-    
+
     const [formData, setFormData] = useState({
         title: '',
         type: '',
-        image: '',
+        img: '',
         ingredients: '',
-        description: ''
+        recipetext: ''
     });
 
     const handleChange = (e) => {
@@ -24,10 +24,13 @@ export default function AddRecipe() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const ings = formData.ingredients
+        let ingredients= ings.split(", ")
+        formData.ingredients = ingredients
         console.log("API'ye gidecek veri:", formData);
 
         try {
-            const response = await fetch('/api/urun-ekle', {
+            const response = await fetch('http://localhost:5170/api/recipes/addrecipe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', 
@@ -111,7 +114,7 @@ export default function AddRecipe() {
                             name="img"
                             placeholder="https://..."
                             className={styles.input}
-                            value={formData.image}
+                            value={formData.img}
                             onChange={handleChange}
                             required
                         />
@@ -145,7 +148,7 @@ export default function AddRecipe() {
                             placeholder="Write each step as a sentence."
                             className={styles.textarea}
                             rows={8}
-                            value={formData.description}
+                            value={formData.recipetext}
                             onChange={handleChange}
                             required
                         ></textarea>
