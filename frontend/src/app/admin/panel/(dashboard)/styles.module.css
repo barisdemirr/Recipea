@@ -1,0 +1,87 @@
+.dashboard {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcomeHeader {
+  margin-bottom: 40px;
+}
+
+.welcomeHeader h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, #fff, #4caf50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcomeHeader p {
+  color: #888;
+  font-size: 1.05rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.statCard {
+  background-color: #1e1e1e; 
+  border: 1px solid #333;
+  padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  border-color: #2e7d32; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.cardIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardInfo h3 {
+  margin: 0 0 5px 0;
+  font-size: 0.9rem;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.statNumber {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.recentActivitySection h2 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.emptyPlaceholder {
+    background-color: #1e1e1e;
+    border: 2px dashed #333;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: #666;
+}
