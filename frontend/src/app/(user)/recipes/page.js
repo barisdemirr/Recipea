@@ -17,6 +17,7 @@ export default  function RecipesPage() {
     useEffect(()=>{
         GetAllRecipes()
         .then(res=> {
+            console.log(res)
             setAllRecipes(res)
         })
         .catch(err=>console.log(`data fetching failed ${err}`))
@@ -31,7 +32,7 @@ export default  function RecipesPage() {
 
     // Filtreleme Mantığı
     const filteredRecipes = activeFilter === 'all'
-        ? allRecipes
+        ? (allRecipes || [])
         : allRecipes.filter(r => r.type === activeFilter);
 
     // Sayfalama Mantığı
