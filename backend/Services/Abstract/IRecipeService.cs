@@ -7,6 +7,8 @@ namespace backend.Services.Abstract
     {
         Task<List<RecipeListDto>> GetAllRecipesAsync();
 
+        Task<FilteredRecipeDto> GetFilteredRecipeAsync(int recipeId);
+
         Task<int> CreateRecipeAsync(RecipeCreateDto dto);
 
     }

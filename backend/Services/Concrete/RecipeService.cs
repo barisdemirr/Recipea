@@ -35,6 +35,23 @@ namespace backend.Services.Concrete
         }
 
 
+        public async Task<FilteredRecipeDto> GetFilteredRecipeAsync(int recipeId)
+        {
+            var filteredRecipe = await _context.Recipes
+                .Where(x => x.Id == recipeId).Select(x => new FilteredRecipeDto
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Img = x.Img,
+                    Ingredients = x.Ingredients,
+                    RecipeText = x.RecipeText
+                })
+                .FirstOrDefaultAsync(); 
+
+            return filteredRecipe;
+        }
+
+
         public async Task<int> CreateRecipeAsync(RecipeCreateDto dto)
         {
             var newRecipe = new Recipe

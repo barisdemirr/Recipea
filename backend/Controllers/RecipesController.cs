@@ -25,6 +25,15 @@ namespace backend.Controllers
             return Ok(result); // 200 OK durum kodu ve veriyi döner.
         }
 
+
+        [HttpGet("{recipeId}")] // GET isteği gelirse burası çalışır
+        public async Task<IActionResult> GetFilteredRecipe(int recipeId)
+        {
+            var result = await _recipeService.GetFilteredRecipeAsync(recipeId);
+            return Ok(result); // 200 OK durum kodu ve veriyi döner.
+        }
+
+
         [HttpPost("addrecipe")]
         public async Task<IActionResult> AddRecipe([FromBody] RecipeCreateDto recipeDto)
         {
