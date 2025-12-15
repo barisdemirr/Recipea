@@ -110,6 +110,11 @@
     transition: background-color 0.3s;
 }
 
+.ctaButton a {
+    text-decoration: none;
+    color: #fff;
+}
+
 .ctaButton:hover {
     background-color: #1b5e20;
 }

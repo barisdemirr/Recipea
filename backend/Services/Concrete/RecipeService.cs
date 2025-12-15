@@ -52,6 +52,29 @@ namespace backend.Services.Concrete
         }
 
 
+        public async Task<RecipeOfTheDayDto> GetRecipeOfTheDayAsync()
+        {
+            int totalRecipes = await _context.Recipes.CountAsync();
+
+            if (totalRecipes == 0) { return null; }
+
+            int seed = DateTime.Now.Date.GetHashCode();
+
+            Random dailyRandom = new Random(seed);
+            int index = dailyRandom.Next(totalRecipes);
+
+            var recipe = await _context.Recipes.Skip(index).Take(1).FirstOrDefaultAsync();
+
+            return new RecipeOfTheDayDto
+            {
+                Id = recipe.Id,
+                Title = recipe.Title,
+                Img = recipe.Img,
+                Ingredients = recipe.Ingredients,
+                RecipeText = recipe.RecipeText
+            };
+        }
+
         public async Task<int> CreateRecipeAsync(RecipeCreateDto dto)
         {
             var newRecipe = new Recipe

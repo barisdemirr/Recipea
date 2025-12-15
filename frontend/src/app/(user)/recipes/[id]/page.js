@@ -40,7 +40,7 @@ export default function RecipeDetail() {
                 console.log(`data fetching failed ${err}`);
                 setLoading(false); 
             });
-    }, [params.id]); // params.id değişirse tekrar çalışsın
+    }, []); 
 
 
     // LOADING CHECK (Guard Clause)

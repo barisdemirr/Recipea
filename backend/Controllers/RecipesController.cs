@@ -34,6 +34,14 @@ namespace backend.Controllers
         }
 
 
+        [HttpGet("recipeoftheday")] // GET isteği gelirse burası çalışır
+        public async Task<IActionResult> GetRecipeOfTheDay()
+        {
+            var result = await _recipeService.GetRecipeOfTheDayAsync();
+            return Ok(result); // 200 OK durum kodu ve veriyi döner.
+        }
+
+
         [HttpPost("addrecipe")]
         public async Task<IActionResult> AddRecipe([FromBody] RecipeCreateDto recipeDto)
         {
@@ -43,4 +51,4 @@ namespace backend.Controllers
             return Ok(new {message = "success", id = newId}); // 200 OK durum kodu ve veriyi döner.
         }
     }
-}
+}   
