@@ -10,7 +10,7 @@ function FavoriteRecipeCard({recipe, onDelete}) {
     return (
         <div className={styles.card}>
             <div className={styles.imageContainer}>
-                <img src={recipe.img} alt={recipe.title} className={styles.cardImage} />
+                <img src={`http://localhost:5170/uploads/recipes/${recipe.img}`} alt={recipe.title} className={styles.cardImage} />
                 <button
                     className={styles.removeBtn}
                     onClick={onDelete}

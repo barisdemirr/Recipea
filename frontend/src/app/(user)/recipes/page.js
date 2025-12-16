@@ -17,7 +17,6 @@ export default  function RecipesPage() {
     useEffect(()=>{
         GetAllRecipes()
         .then(res=> {
-            console.log(res)
             setAllRecipes(res)
         })
         .catch(err=>console.log(`data fetching failed ${err}`))

@@ -36,6 +36,7 @@ var app = builder.Build();
 
 
 //-------MIDDLEWARE'LER-------
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapOpenApi();
 app.UseCors("AllowLocalHost");

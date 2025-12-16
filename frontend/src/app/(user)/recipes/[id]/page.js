@@ -95,7 +95,7 @@ export default function RecipeDetail() {
                 </header>
 
                 <div className={styles.imageWrapper}>
-                    <img src={recipe.img} alt={recipe.title} className={styles.heroImage} />
+                    <img src={`http://localhost:5170/uploads/recipes/${recipe.img}`} alt={recipe.title} className={styles.heroImage} />
                 </div>
 
                 <div className={styles.contentGrid}>

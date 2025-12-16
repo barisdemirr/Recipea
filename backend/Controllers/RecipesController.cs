@@ -43,9 +43,9 @@ namespace backend.Controllers
 
 
         [HttpPost("addrecipe")]
-        public async Task<IActionResult> AddRecipe([FromBody] RecipeCreateDto recipeDto)
+        public async Task<IActionResult> AddRecipe([FromForm] RecipeCreateDto recipeDto)
         {
-            Console.WriteLine(recipeDto);
+
             var newId = await _recipeService.CreateRecipeAsync(recipeDto);
 
             return Ok(new {message = "success", id = newId}); // 200 OK durum kodu ve veriyi döner.

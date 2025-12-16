@@ -6,7 +6,7 @@ function RecipeCard({recipe={}}) {
     return (
         <div key={recipe.id} className={styles.card}>
             <div className={styles.imageContainer}>
-                <img src={recipe.img} alt={recipe.title} className={styles.cardImage} />
+                <img src={`http://localhost:5170/uploads/recipes/${recipe.img}`} alt={recipe.title} className={styles.cardImage} />
             </div>
             <div className={styles.cardContent}>
                 <h4 className={styles.cardTitle}>{recipe.title}</h4>

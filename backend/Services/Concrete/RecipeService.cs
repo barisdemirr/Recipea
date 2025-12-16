@@ -8,11 +8,13 @@ namespace backend.Services.Concrete
 {
     public class RecipeService : IRecipeService
     {
+        private readonly IWebHostEnvironment _environment;
         private readonly AppDbContext _context; // Veritabanı bağlantısı
 
         // Constructor Injection: DbContext'i Program.cs'ten istiyoruz.
-        public RecipeService(AppDbContext context)
+        public RecipeService(IWebHostEnvironment environment, AppDbContext context)
         {
+            _environment = environment;
             _context = context;
         }
 
@@ -77,11 +79,52 @@ namespace backend.Services.Concrete
 
         public async Task<int> CreateRecipeAsync(RecipeCreateDto dto)
         {
+            // check
+
+            if (dto.Img == null || dto.Img.Length == 0)
+            {
+                throw new Exception("File uploading obligation!");
+            }
+
+
+            if (dto.Img.Length > 2 * 1024 * 1024)
+            {
+                throw new Exception("Dosya boyutu 2 MB'dan büyük olamaz!");
+            }
+            Console.WriteLine(dto.Img.FileName);
+
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+            var extension = Path.GetExtension(dto.Img.FileName).ToLower();
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                throw new Exception("Sadece .jpg, .jpeg ve .png formatları kabul edilir!");
+            }
+
+            // process
+
+            string uniqueFileName = $"{Guid.NewGuid()}_{dto.Img.FileName}";
+
+            string uploadsPath = Path.Combine(_environment.WebRootPath, "uploads/recipes");
+
+            if (!Directory.Exists(uploadsPath)) Directory.CreateDirectory(uploadsPath);
+
+            string imgPath = Path.Combine(uploadsPath, uniqueFileName);
+
+
+            // using ne işe yarar? stream gibi işlemler bitince ramde yer kaplamakla yetinmez üstüne işletim sisteminde dosya kilidi tutar
+            // bu yüzden using kullanıyoruz ki işlem tamamlanınca oto. sonlansın
+
+            using var fileStream = new FileStream(imgPath, FileMode.Create);
+            
+            await dto.Img.CopyToAsync(fileStream);
+            
+
             var newRecipe = new Recipe
             {
                 Title = dto.Title,
                 Type = dto.Type,
-                Img = dto.Img,
+                Img = uniqueFileName,
                 Ingredients = dto.Ingredients,
                 RecipeText = dto.RecipeText
             };

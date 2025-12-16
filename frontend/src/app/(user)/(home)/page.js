@@ -35,7 +35,7 @@ export default function Home() {
             } catch (error) {
                 notFound()
             }
-            
+
         setLoading(false)
         }
 
@@ -62,7 +62,7 @@ export default function Home() {
 
                     <div className={styles.heroCard}>
                         <div className={styles.heroImageWrapper}>
-                            <img src={recipeOfTheDay.img} alt={recipeOfTheDay.title} className={styles.heroImage} />
+                            <img src={`http://localhost:5170/uploads/recipes/${recipeOfTheDay.img}`} alt={recipeOfTheDay.title} className={styles.heroImage} />
                         </div>
 
                         <div className={styles.heroContent}>

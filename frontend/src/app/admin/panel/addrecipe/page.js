@@ -1,61 +1,42 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation'
 import { Save, Type, Image as ImageIcon, FileText, List, AlignLeft } from 'lucide-react';
 import styles from './styles.module.css';
 
 export default function AddRecipe() {
+    const formRef = useRef(null)
 
-    const [formData, setFormData] = useState({
-        title: '',
-        type: '',
-        img: '',
-        ingredients: '',
-        recipetext: ''
-    });
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
+        const formData = new FormData(event.target);
+        const file = event.target.img.files[0]
+        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const ings = formData.ingredients
-        let ingredients= ings.split(", ")
-        formData.ingredients = ingredients
-        console.log("API'ye gidecek veri:", formData);
-
-        try {
-            const response = await fetch('http://localhost:5170/api/recipes/addrecipe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', 
-                },
-                body: JSON.stringify(formData), 
-            });
-
-            if (response.ok) {
-                console.log("success")
-            } else {
-                console.log("failed")
-            }
-
-        } catch (error) {
-            console.error('Fetch error:', error);
+        if (!file || file.size > 2097152 || !allowedTypes.includes(file.type)){
+            console.log("Check the form!")
+            return {};
         }
 
-        setFormData({
-            title: '',
-            type: '',
-            image: '',
-            ingredients: '',
-            description: ''
-        })
+        try {
+            const res = await fetch('http://localhost:5170/api/recipes/addrecipe', {
+                method: 'POST',
+                body: formData,
+            })
+            if (!res.ok){
+                throw new Error
+            }
+
+            formRef.current.reset()
+
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
+
+
 
     return (
         <div className={styles.container}>
@@ -65,7 +46,7 @@ export default function AddRecipe() {
                 <p className={styles.pageSubtitle}>To add a new recipe, fill out the form.</p>
             </header>
 
-            <form onSubmit={handleSubmit} className={styles.formCard}>
+            <form ref={formRef} onSubmit={handleSubmit} className={styles.formCard}>
 
                 <div className={styles.formGroup}>
                     <label htmlFor="title" className={styles.label}>Title</label>
@@ -77,8 +58,6 @@ export default function AddRecipe() {
                             name="title"
                             placeholder="Ex: biber dolması"
                             className={styles.input}
-                            value={formData.title}
-                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -92,8 +71,7 @@ export default function AddRecipe() {
                             id="type"
                             name="type"
                             className={styles.select}
-                            value={formData.type}
-                            onChange={handleChange}
+                            required
                         >
                             <option value="soup">Soups</option>
                             <option value="main">Main Courses</option>
@@ -109,15 +87,12 @@ export default function AddRecipe() {
                     <div className={styles.inputWrapper}>
                         <ImageIcon className={styles.icon} size={20} />
                         <input
-                            type="text" // URL inputu
-                            id="image"
+                            className="form-control w-25"
+                            multiple={false}
+                            type="file"
                             name="img"
-                            placeholder="https://..."
-                            className={styles.input}
-                            value={formData.img}
-                            onChange={handleChange}
-                            required
-                        />
+                            id="image"
+                        ></input>
                     </div>
                 </div>
 
@@ -131,8 +106,6 @@ export default function AddRecipe() {
                             placeholder="Write the ingredients separated by commas."
                             className={styles.textarea}
                             rows={5}
-                            value={formData.ingredients}
-                            onChange={handleChange}
                             required
                         ></textarea>
                     </div>
@@ -148,8 +121,6 @@ export default function AddRecipe() {
                             placeholder="Write each step as a sentence."
                             className={styles.textarea}
                             rows={8}
-                            value={formData.recipetext}
-                            onChange={handleChange}
                             required
                         ></textarea>
                     </div>
