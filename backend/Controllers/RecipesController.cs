@@ -1,6 +1,7 @@
 ﻿using backend.DTOs.Recipe;
 using backend.Services;
 using backend.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +43,7 @@ namespace backend.Controllers
         }
 
 
+        [Authorize]
         [HttpPost("addrecipe")]
         public async Task<IActionResult> AddRecipe([FromForm] RecipeCreateDto recipeDto)
         {

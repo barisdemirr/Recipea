@@ -4,14 +4,15 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Giriş başarılıysa yönlendirmek için
 import { User, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import styles from './styles.module.css';
+import Cookies  from 'js-cookie';
 
 export default function AdminLogin() {
   const router = useRouter();
   
   // Form verilerini tutacak state
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    Username: '',
+    Password: ''
   });
 
   // UI durumları
@@ -35,7 +36,7 @@ export default function AdminLogin() {
 
     try {
       // Backend'e istek atıyoruz
-      const response = await fetch('https://api.seninsiten.com/api/auth/login', {
+      const response = await fetch('http://localhost:5170/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,13 +51,9 @@ export default function AdminLogin() {
 
       const data = await response.json();
       
-      // Token'ı kaydet (LocalStorage veya Cookie)
-      // localStorage.setItem('token', data.token);
+      Cookies.set("admin_token", data.token, {expires: 1, path: "/admin"})
       
-      console.log("Giriş Başarılı:", data);
-      
-      // Admin paneline yönlendir
-      // router.push('/admin/dashboard');
+      router.push('/admin/panel');
 
     } catch (err) {
       setError(err.message);
@@ -90,7 +87,7 @@ export default function AdminLogin() {
               <input
                 type="text"
                 id="username"
-                name="username" // State yönetimi için önemli
+                name="Username" // State yönetimi için önemli
                 placeholder="Admin username"
                 className={styles.input}
                 value={formData.username}
@@ -108,7 +105,7 @@ export default function AdminLogin() {
               <input
                 type="password"
                 id="password"
-                name="password"
+                name="Password"
                 placeholder="••••••••"
                 className={styles.input}
                 value={formData.password}

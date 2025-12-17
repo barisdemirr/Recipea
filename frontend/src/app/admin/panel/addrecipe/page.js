@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation'
 import { Save, Type, Image as ImageIcon, FileText, List, AlignLeft } from 'lucide-react';
 import styles from './styles.module.css';
+import Cookies from 'js-cookie';
 
 export default function AddRecipe() {
     const formRef = useRef(null)
@@ -20,9 +21,19 @@ export default function AddRecipe() {
             return {};
         }
 
+        const token = Cookies.get("admin_token")
+
+        if (!token){
+            console.log("401");
+            return {};
+        }
+        
         try {
             const res = await fetch('http://localhost:5170/api/recipes/addrecipe', {
                 method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
                 body: formData,
             })
             if (!res.ok){

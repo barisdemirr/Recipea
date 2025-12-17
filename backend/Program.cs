@@ -3,8 +3,13 @@ using backend.Services;
 using backend.Services.Abstract;
 using backend.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
+
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = jwtSettings["SecretKey"];
 
 // -----------SERVICES-------------
 builder.Services.AddControllers();
@@ -31,6 +36,27 @@ builder.Services.AddCors(options =>
 });
 
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience=true,
+        ValidateLifetime= true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+    };
+});
+
+
+
 var app = builder.Build();
 
 
@@ -38,8 +64,12 @@ var app = builder.Build();
 //-------MIDDLEWARE'LER-------
 app.UseStaticFiles();
 app.UseHttpsRedirection();
-app.MapOpenApi();
 app.UseCors("AllowLocalHost");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapOpenApi();
 app.MapControllers();
 
 
