@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using backend.DTOs.Auth;
+using backend.Services;
+using backend.Services.Abstract;
+using backend.Services.Concrete;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using backend.DTOs.Auth;
 
 namespace backend.Controllers
 {
@@ -12,50 +11,20 @@ namespace backend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IAuthService _authService;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IAuthService authService)
         {
-            _configuration = configuration;
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var adminUser = _configuration["AdminSettings:Username"];
-            var adminPass = _configuration["AdminSettings:Password"];
-
-            if (dto.Username == adminUser && dto.Password == adminPass)
-            {
-                var token = TokenGenerator(dto.Username);
-                return Ok(new { token = token });
-            }
-
-            return Unauthorized("login failed!");
+            var result = await _authService.AuthHandler(dto);
+            Console.WriteLine(result);
+            return Ok(new { token = result});
         }
 
-
-        private string TokenGenerator(string username) 
-        {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, username),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            };
-
-            var token = new JwtSecurityToken
-                (
-                    issuer : jwtSettings["Issuer"],
-                    audience : jwtSettings["Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddHours(1),
-                    signingCredentials: creds
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }
