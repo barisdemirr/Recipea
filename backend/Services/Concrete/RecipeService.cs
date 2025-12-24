@@ -48,9 +48,15 @@ namespace backend.Services.Concrete
                     Ingredients = x.Ingredients,
                     RecipeText = x.RecipeText
                 })
-                .FirstOrDefaultAsync(); 
+                .FirstOrDefaultAsync();
+
+            if(filteredRecipe == null)
+            {
+                throw new Exception("Recipe is not defined!");
+            }
 
             return filteredRecipe;
+
         }
 
 

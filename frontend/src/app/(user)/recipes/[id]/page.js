@@ -19,6 +19,7 @@ export default function RecipeDetail() {
     // STATE DEFINITIONS
     const [recipe, setRecipe] = useState(null); // Başlangıçta null
     const [loading, setLoading] = useState(true); // Başlangıçta yükleniyor: true
+    const [error, setError] = useState('');
 
     if (params.id === "favorites") {
         return <Favorites />;
@@ -29,17 +30,35 @@ export default function RecipeDetail() {
     useEffect(() => {
         setLoading(true);
 
-        const recipeId = params.id; 
 
-        GetFilteredRecipe(recipeId)
-            .then(data => {
-                setRecipe(data); 
-                setLoading(false); 
-            })
-            .catch(err => {
-                console.log(`data fetching failed ${err}`);
-                setLoading(false); 
-            });
+        // GetFilteredRecipe(recipeId)
+        //     .then(data => {
+        //         setRecipe(data); 
+        //         setLoading(false); 
+        //     })
+        //     .catch(err => {
+        //         setLoading(false); 
+        //     });
+
+        const FetchDataAsync = async ()=>{
+            try {
+                const response = await GetFilteredRecipe(params.id)
+                if (!response.ok){
+                    const errorData = await response.json()
+                    throw new Error(errorData.Message)
+                }
+                setLoading(false);
+                const recipeData = await response.json()
+                setRecipe(recipeData);  
+
+            } catch (err) {
+                setError(err.message)
+                setLoading(false);
+            }
+        }
+
+        FetchDataAsync();
+
     }, []); 
 
 
@@ -52,10 +71,9 @@ export default function RecipeDetail() {
         );
     }
 
-
     // DATA CHECK
     if (!recipe) {
-        return <div className={styles.container}>Tarif bulunamadı.</div>;
+        return <div className={styles.container}>{error}</div>
     }
 
     // SAFE CALCULATIONS

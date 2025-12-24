@@ -27,7 +27,7 @@ namespace backend.Services.Concrete
                 return token;
             }
 
-            throw new Exception("Login Failed!"); ;
+            throw new Exception("Login Failed!"); 
         }
 
 

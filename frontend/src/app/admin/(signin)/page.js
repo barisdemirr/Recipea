@@ -46,7 +46,8 @@ export default function AdminLogin() {
       });
 
       if (!response.ok) {
-        throw new Error('Giriş başarısız. Bilgilerinizi kontrol edin.');
+        const errorData = await response.json()
+        throw new Error(errorData.Message);
       }
 
       const data = await response.json();

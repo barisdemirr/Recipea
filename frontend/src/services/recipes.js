@@ -14,12 +14,9 @@ const GetAllRecipes = async ()=>{
 }
 
 const GetFilteredRecipe = async recipeId=>{
-    try {
-        const res = await fetch(`${BASE_URL}/recipes/${recipeId}`).then(res=>res.json())
+        const res = await fetch(`${BASE_URL}/recipes/${recipeId}`)
         return res;
-    } catch (error) {
-        console.log(`hata bu knk: ${error}`)
-    }
+        
 }
 
 const GetRecipeOfTheDay = async ()=>{

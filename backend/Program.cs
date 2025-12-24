@@ -62,6 +62,7 @@ var app = builder.Build();
 
 
 //-------MIDDLEWARE'LER-------
+app.UseMiddleware<backend.Middlewares.ExceptionMiddleware>();
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors("AllowLocalHost");

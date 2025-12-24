@@ -206,6 +206,16 @@ body {
     transform: rotate(-3deg);
 }
 
+.errorMessage {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
 /* Responsive */
 @media (max-width: 800px) {
     .contentGrid {
