@@ -6,8 +6,9 @@ import Link from 'next/link';
 import styles from './styles.module.css';
 import { ChefHat, Heart, Clock, Users, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import allRecipes from "@/mocks/recipes.json"
-import {Favorites} from "./_components/favorites"
+import { Favorites } from "./_components/favorites"
 import { GetFilteredRecipe } from '@/services/recipes';
+import { Spinner } from '@/components/loading';
 
 import useFavorites from '@/hooks/useFavorites';
 
@@ -40,48 +41,55 @@ export default function RecipeDetail() {
         //         setLoading(false); 
         //     });
 
-        const FetchDataAsync = async ()=>{
+        const FetchDataAsync = async () => {
             try {
                 const response = await GetFilteredRecipe(params.id)
-                if (!response.ok){
+                if (!response.ok) {
                     const errorData = await response.json()
                     throw new Error(errorData.Message)
                 }
                 setLoading(false);
                 const recipeData = await response.json()
-                setRecipe(recipeData);  
+                setRecipe(recipeData);
 
             } catch (err) {
-                setError(err.message)
+                if (err.message == "Failed to fetch") {
+                    setError("Server connection failed!")
+                } else {
+                    setError(err.message)
+                }
+
                 setLoading(false);
             }
         }
 
         FetchDataAsync();
 
-    }, []); 
+    }, []);
 
 
     // LOADING CHECK (Guard Clause)
     if (loading) {
         return (
-            <div className={styles.container}>
-                <p style={{textAlign:'center', marginTop:'50px'}}>Yükleniyor...</p>
-            </div>
+            <Spinner fullPage />
         );
     }
 
     // DATA CHECK
     if (!recipe) {
-        return <div className={styles.container}>{error}</div>
+        return (
+        <div className={styles.container}>
+            <div className={styles.noResult}>{error}</div>
+        </div>
+        )
     }
 
     // SAFE CALCULATIONS
     // We are now 100% sure that 'recipe' is populated.
     const recipeId = Number(params.id);
-    
-    const steps = recipe.recipeText 
-        ? recipe.recipeText.split('.').filter(step => step.trim() !== '') 
+
+    const steps = recipe.recipeText
+        ? recipe.recipeText.split('.').filter(step => step.trim() !== '')
         : [];
 
     const isFavorite = isInFavorites(recipeId);
@@ -96,13 +104,13 @@ export default function RecipeDetail() {
             <main className={styles.mainContent}>
                 <header className={styles.header}>
                     <div className={styles.titleArea}>
-                        <h1 className={styles.pageTitle}>{recipe.title}</h1> 
+                        <h1 className={styles.pageTitle}>{recipe.title}</h1>
                         <button
                             className={`${styles.favButton} ${isFavorite ? styles.activeFav : ''}`}
                             onClick={toggleFavorite}
                             title="Add to Favorites"
                         >
-                             <Heart size={28} fill={isFavorite ? "#e11d48" : "none"} />
+                            <Heart size={28} fill={isFavorite ? "#e11d48" : "none"} />
                         </button>
                     </div>
 

@@ -12,6 +12,8 @@ import { Carousel } from "./_components/Carousel"
 import { GetRecipeOfTheDay, GetAllRecipes } from "@/services/recipes";
 import { notFound } from "next/navigation";
 
+import { Spinner } from "@/components/loading"
+
 
 
 export default function Home() {
@@ -21,7 +23,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function Run() {
+        async function GetAllRecipesAsync() {
             try {
                 const rotd = await GetRecipeOfTheDay()
                 setRecipeOfTheDay(rotd)
@@ -31,23 +33,22 @@ export default function Home() {
 
             try {
                 const allR = await GetAllRecipes()
-                setAllRecipes(allR)
+                const allRData = await allR.json()
+                setAllRecipes(allRData)     
             } catch (error) {
                 notFound()
             }
 
-        setLoading(false)
+            setLoading(false)
         }
 
-        Run()
+        GetAllRecipesAsync()
     }, [])
 
     // LOADING CHECK (Guard Clause)
     if (loading) {
         return (
-            <div className={styles.container}>
-                <p style={{ textAlign: 'center', marginTop: '50px' }}>Yükleniyor...</p>
-            </div>
+                <Spinner fullPage />
         );
     }
     let totalIngre = recipeOfTheDay.ingredients.length

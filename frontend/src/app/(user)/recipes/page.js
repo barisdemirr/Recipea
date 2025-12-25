@@ -5,23 +5,55 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'; // URL parametrelerini okumak için
 import styles from './styles.module.css';
 import { useRouter } from 'next/navigation'
-import {RecipeCard} from "@/components/recipe-card"
+import { RecipeCard } from "@/components/recipe-card"
 import { GetAllRecipes } from '@/services/recipes';
+import { Spinner } from "@/components/loading"
 
 
 const ITEMS_PER_PAGE = 6; // Her sayfada 6 kart (2 satır x 3 sütun)
 
-export default  function RecipesPage() {
-    
-    const [allRecipes, setAllRecipes] = useState([])
-    useEffect(()=>{
-        GetAllRecipes()
-        .then(res=> {
-            setAllRecipes(res)
-        })
-        .catch(err=>console.log(`data fetching failed ${err}`))
+export default function RecipesPage() {
+    const [loading, setLoading] = useState(true)
+    const [allRecipes, setAllRecipes] = useState()
+    const [error, setError] = useState("")
+
+    useEffect(() => {
+        // GetAllRecipes()
+        // .then(res=> {
+        //     setAllRecipes(res)
+        // })
+        // .catch(err=>console.log(`data fetching failed ${err}`))
+        async function GetAllRecipesAsync() {
+            try {
+                const response = await GetAllRecipes()
+                if (!response.ok) {
+                    throw new Error("Something went wrong!")
+                }
+
+                const allRecipesData = await response.json()
+                
+                if (allRecipesData.length == 0 ){
+                    throw new Error("No recipes yet.")
+                } else{
+                    setAllRecipes(allRecipesData)
+                }
+                
+                setLoading(false)
+            } catch (err) {
+                if (err.message == "Failed to fetch"){
+                    setError("Server connection failed!")
+                }else {
+                    setError(err.message)
+                }
+                setLoading(false)
+            }
+        }
+
+        GetAllRecipesAsync()
     }, [])
-    
+
+
+
     const router = useRouter()
     const searchParams = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('all');
@@ -42,6 +74,13 @@ export default  function RecipesPage() {
     // Filtre değişince sayfayı 1 yapmamız gerekir ancak 
     // basitlik için Link ile sayfayı yeniliyoruz veya kullanıcı manuel gider.
     // Bu örnekte filtre butonları sadece state'i değiştiriyor.
+
+    // LOADING CHECK (Guard Clause)
+    if (loading) {
+        return (
+            <Spinner fullPage />
+        );
+    }
 
     return (
         <div className={styles.container}>
@@ -107,7 +146,7 @@ export default  function RecipesPage() {
                             </div>
                         ))
                     ) : (
-                        <div className={styles.noResult}>No recipes yet.</div>
+                        <div className={styles.noResult}>{error}</div>
                     )}
                 </div>
 
