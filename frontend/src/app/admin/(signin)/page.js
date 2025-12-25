@@ -1,25 +1,23 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Giriş başarılıysa yönlendirmek için
+import { useRouter } from 'next/navigation';
 import { User, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import styles from './styles.module.css';
 import Cookies  from 'js-cookie';
+import { AdminSignIn } from "@/services/recipes"
 
 export default function AdminLogin() {
   const router = useRouter();
   
-  // Form verilerini tutacak state
   const [formData, setFormData] = useState({
     Username: '',
     Password: ''
   });
 
-  // UI durumları
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Input değişimlerini yakala
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -28,22 +26,13 @@ export default function AdminLogin() {
     }));
   };
 
-  // Form gönderme işlemi
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Sayfa yenilenmesini engelle
+    e.preventDefault(); // block reloading 
     setError('');
     setLoading(true);
 
     try {
-      // Backend'e istek atıyoruz
-      const response = await fetch('http://localhost:5170/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // Backend'in beklediği formatta veriyi gönderiyoruz
-        body: JSON.stringify(formData), 
-      });
+      const response = await AdminSignIn(formData)
 
       if (!response.ok) {
         const errorData = await response.json()
@@ -77,10 +66,8 @@ export default function AdminLogin() {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           
-          {/* Hata Mesajı Alanı */}
           {error && <div className={styles.errorMessage}>{error}</div>}
 
-          {/* Kullanıcı Adı Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="username" className={styles.label}>Username</label>
             <div className={styles.inputWrapper}>
@@ -88,7 +75,7 @@ export default function AdminLogin() {
               <input
                 type="text"
                 id="username"
-                name="Username" // State yönetimi için önemli
+                name="Username"
                 placeholder="Admin username"
                 className={styles.input}
                 value={formData.username}
@@ -98,7 +85,6 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {/* Şifre Input */}
           <div className={styles.inputGroup}>
             <label htmlFor="password" className={styles.label}>Password</label>
             <div className={styles.inputWrapper}>

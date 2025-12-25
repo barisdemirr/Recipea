@@ -9,9 +9,8 @@ namespace backend.Services.Concrete
     public class RecipeService : IRecipeService
     {
         private readonly IWebHostEnvironment _environment;
-        private readonly AppDbContext _context; // Veritabanı bağlantısı
+        private readonly AppDbContext _context; 
 
-        // Constructor Injection: DbContext'i Program.cs'ten istiyoruz.
         public RecipeService(IWebHostEnvironment environment, AppDbContext context)
         {
             _environment = environment;
@@ -20,8 +19,6 @@ namespace backend.Services.Concrete
 
         public async Task<List<RecipeListDto>> GetAllRecipesAsync()
         {
-            // LINQ Sorgusu: SQL yazmadan C# ile sorgu atıyoruz.
-            // Select işlemi: Entity -> DTO dönüşümü (Mapping)
             var recipes = await _context.Recipes
                 .Select(x => new RecipeListDto
                 {
@@ -31,7 +28,7 @@ namespace backend.Services.Concrete
                     Img = x.Img,
                     Ingredients = x.Ingredients
                 })
-                .ToListAsync(); // Veritabanına "Select * from Recipes" sorgusu şimdi gider.
+                .ToListAsync(); 
 
             return recipes;
         }
@@ -117,8 +114,8 @@ namespace backend.Services.Concrete
 
             string imgPath = Path.Combine(uploadsPath, uniqueFileName);
 
-
-            // using ne işe yarar? stream gibi işlemler bitince ramde yer kaplamakla yetinmez üstüne işletim sisteminde dosya kilidi tutar
+            // ---------------this knowledge was written for myself---------
+            // using ne işe yarar? stream gibi işlemler, bitince ramde yer kaplamakla yetinmez üstüne işletim sisteminde dosya kilidi tutar
             // bu yüzden using kullanıyoruz ki işlem tamamlanınca oto. sonlansın
 
             using var fileStream = new FileStream(imgPath, FileMode.Create);
@@ -139,6 +136,13 @@ namespace backend.Services.Concrete
 
             await _context.SaveChangesAsync();
             return newRecipe.Id;
+        }
+
+
+        public async Task<int> CountRecipeAsync()
+        {
+            var count = await _context.Recipes.CountAsync();
+            return count;
         }
     }
 }

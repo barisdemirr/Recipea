@@ -1,46 +1,28 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { notFound, useParams } from 'next/navigation';
-import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styles from './styles.module.css';
-import { ChefHat, Heart, Clock, Users, ArrowLeft, CheckCircle2 } from 'lucide-react';
-import allRecipes from "@/mocks/recipes.json"
+import { Heart, Clock, Users, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { Favorites } from "./_components/favorites"
 import { GetFilteredRecipe } from '@/services/recipes';
 import { Spinner } from '@/components/loading';
-
 import useFavorites from '@/hooks/useFavorites';
+
 
 export default function RecipeDetail() {
     const { handleFavorite, isInFavorites } = useFavorites();
     const params = useParams();
 
-
-    // STATE DEFINITIONS
-    const [recipe, setRecipe] = useState(null); // Başlangıçta null
-    const [loading, setLoading] = useState(true); // Başlangıçta yükleniyor: true
+    const [recipe, setRecipe] = useState(null); 
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     if (params.id === "favorites") {
         return <Favorites />;
     }
 
-
-    // DATA FETCHING
     useEffect(() => {
-        setLoading(true);
-
-
-        // GetFilteredRecipe(recipeId)
-        //     .then(data => {
-        //         setRecipe(data); 
-        //         setLoading(false); 
-        //     })
-        //     .catch(err => {
-        //         setLoading(false); 
-        //     });
-
         const FetchDataAsync = async () => {
             try {
                 const response = await GetFilteredRecipe(params.id)
@@ -68,14 +50,12 @@ export default function RecipeDetail() {
     }, []);
 
 
-    // LOADING CHECK (Guard Clause)
     if (loading) {
         return (
             <Spinner fullPage />
         );
     }
 
-    // DATA CHECK
     if (!recipe) {
         return (
         <div className={styles.container}>
@@ -83,9 +63,6 @@ export default function RecipeDetail() {
         </div>
         )
     }
-
-    // SAFE CALCULATIONS
-    // We are now 100% sure that 'recipe' is populated.
     const recipeId = Number(params.id);
 
     const steps = recipe.recipeText
@@ -98,7 +75,6 @@ export default function RecipeDetail() {
         handleFavorite(recipe);
     };
 
-    // RENDER
     return (
         <div className={styles.container}>
             <main className={styles.mainContent}>

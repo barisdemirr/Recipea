@@ -2,6 +2,8 @@ bin/
 obj/
 
 .vs/
+.vscode/
+*.sln.docstates
 *.user
 *.suo
 
@@ -9,5 +11,8 @@ obj/
 .DS_Store
 Thumbs.db
 
-wwwwroot/uploads
+wwwwroot/uploads/*
 !wwwwroot/uploads/.gitkeep
+
+[Pp]ublish/
+packages/

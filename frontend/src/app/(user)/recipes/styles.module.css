@@ -5,36 +5,7 @@
   padding-bottom: 50px;
 }
 
-/* Navbar Ufak Düzenleme */
-.navbar {
-  background-color: white;
-  padding: 15px 40px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.navLogo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: bold;
-  color: #2e7d32;
-  font-size: 1.2rem;
-}
-
-.navLinks a {
-  text-decoration: none;
-  color: #555;
-  transition: color 0.3s;
-}
-
-.navLinks a:hover {
-  color: #2e7d32;
-}
-
-/* Filtre Barı */
 .filterBarWrapper {
   background-color: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.03);
@@ -76,7 +47,6 @@
   border-color: #2e7d32;
 }
 
-/* Ana İçerik ve Grid */
 .contentWrapper {
   width: 100%;
   display: flex;
@@ -85,9 +55,9 @@
 }
 
 .gridContainer {
-  width: 60%; /* İstenilen genişlik */
+  width: 60%; 
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Her satırda 3 kart */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 25px;
   margin-bottom: 40px;
 }
@@ -100,7 +70,6 @@
   font-size: 1.1rem;
 }
 
-/* Kart Stilleri (Carousel ile aynı yapıda) */
 .card {
   background-color: white;
   border-radius: 15px;
@@ -152,7 +121,7 @@
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 15px;
-  flex: 1; /* İçeriği yukarı iter */
+  flex: 1; 
 }
 
 .detailsLink {
@@ -173,7 +142,6 @@
   text-decoration: underline;
 }
 
-/* Sayfalama (Pagination) */
 .pagination {
   display: flex;
   align-items: center;
@@ -219,7 +187,9 @@
   background-color: #f5f5f5;
 }
 
-/* Responsive Düzenlemeler */
+
+/*-----RESPONSIVE------ */
+
 @media (max-width: 1200px) {
   .gridContainer {
     width: 80%;
@@ -229,14 +199,14 @@
 @media (max-width: 900px) {
   .gridContainer {
     width: 90%;
-    grid-template-columns: repeat(2, 1fr); /* Tableti için 2 sütun */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 600px) {
   .gridContainer {
     width: 95%;
-    grid-template-columns: 1fr; /* Mobil için 1 sütun */
+    grid-template-columns: 1fr; 
   }
   
   .filterBar {

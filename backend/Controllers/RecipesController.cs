@@ -7,39 +7,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
-    [Route("api/[controller]")] // URL: api/recipes
-    [ApiController] // Bu class'ın bir API olduğunu belirtir
+    [Route("api/[controller]")] 
+    [ApiController] 
     public class RecipesController : ControllerBase
     {
         private readonly IRecipeService _recipeService;
 
-        // Servisi enjekte ediyoruz
         public RecipesController(IRecipeService recipeService)
         {
             _recipeService = recipeService;
         }
 
-        [HttpGet] // GET isteği gelirse burası çalışır
+        [HttpGet] 
         public async Task<IActionResult> GetAll()
         {
             var result = await _recipeService.GetAllRecipesAsync();
-            return Ok(result); // 200 OK durum kodu ve veriyi döner.
+            return Ok(result); 
         }
 
 
-        [HttpGet("{recipeId}")] // GET isteği gelirse burası çalışır
+        [HttpGet("{recipeId}")] 
         public async Task<IActionResult> GetFilteredRecipe(int recipeId)
         {
             var result = await _recipeService.GetFilteredRecipeAsync(recipeId);
-            return Ok(result); // 200 OK durum kodu ve veriyi döner.
+            return Ok(result); 
         }
 
 
-        [HttpGet("recipeoftheday")] // GET isteği gelirse burası çalışır
+        [HttpGet("recipeoftheday")] 
         public async Task<IActionResult> GetRecipeOfTheDay()
         {
             var result = await _recipeService.GetRecipeOfTheDayAsync();
-            return Ok(result); // 200 OK durum kodu ve veriyi döner.
+            return Ok(result); 
         }
 
 
@@ -50,7 +49,15 @@ namespace backend.Controllers
 
             var newId = await _recipeService.CreateRecipeAsync(recipeDto);
 
-            return Ok(new {message = "success", id = newId}); // 200 OK durum kodu ve veriyi döner.
+            return Ok(new {message = "success", id = newId}); 
+        }
+
+        [Authorize]
+        [HttpGet("recipecount")]
+        public async Task<IActionResult> GetRecipeCount()
+        {
+            var res = await _recipeService.CountRecipeAsync();
+            return Ok(res);
         }
     }
 }   

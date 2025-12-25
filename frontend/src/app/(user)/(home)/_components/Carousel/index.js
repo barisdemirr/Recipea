@@ -12,7 +12,7 @@ const Carousel = ({ recipes }) => {
     const scroll = (direction) => {
         if (scrollRef.current) {
             const { current } = scrollRef;
-            const scrollAmount = 320; // Kaydırma miktarı
+            const scrollAmount = 320; 
             if (direction === 'left') {
                 current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             } else {

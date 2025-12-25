@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation'; // URL parametrelerini okumak için
+import { useSearchParams } from 'next/navigation'; 
 import styles from './styles.module.css';
 import { useRouter } from 'next/navigation'
 import { RecipeCard } from "@/components/recipe-card"
@@ -10,7 +10,7 @@ import { GetAllRecipes } from '@/services/recipes';
 import { Spinner } from "@/components/loading"
 
 
-const ITEMS_PER_PAGE = 6; // Her sayfada 6 kart (2 satır x 3 sütun)
+const ITEMS_PER_PAGE = 6; 
 
 export default function RecipesPage() {
     const [loading, setLoading] = useState(true)
@@ -18,11 +18,6 @@ export default function RecipesPage() {
     const [error, setError] = useState("")
 
     useEffect(() => {
-        // GetAllRecipes()
-        // .then(res=> {
-        //     setAllRecipes(res)
-        // })
-        // .catch(err=>console.log(`data fetching failed ${err}`))
         async function GetAllRecipesAsync() {
             try {
                 const response = await GetAllRecipes()
@@ -58,24 +53,20 @@ export default function RecipesPage() {
     const searchParams = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('all');
 
-    // URL'den 'page' parametresini al, yoksa 1 kabul et
     const currentPage = Number(searchParams.get('page')) || 1;
 
-    // Filtreleme Mantığı
+    // Filter Logic
     const filteredRecipes = activeFilter === 'all'
         ? (allRecipes || [])
         : allRecipes.filter(r => r.type === activeFilter);
 
-    // Sayfalama Mantığı
+    // Pagination Logic
     const totalPages = Math.ceil(filteredRecipes.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const currentRecipes = filteredRecipes.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-    // Filtre değişince sayfayı 1 yapmamız gerekir ancak 
-    // basitlik için Link ile sayfayı yeniliyoruz veya kullanıcı manuel gider.
-    // Bu örnekte filtre butonları sadece state'i değiştiriyor.
 
-    // LOADING CHECK (Guard Clause)
+    // LOADING CHECK 
     if (loading) {
         return (
             <Spinner fullPage />
@@ -84,8 +75,6 @@ export default function RecipesPage() {
 
     return (
         <div className={styles.container}>
-
-            {/* FILTER BAR */}
             <div className={styles.filterBarWrapper}>
                 <div className={styles.filterBar}>
                     <button
@@ -136,7 +125,6 @@ export default function RecipesPage() {
                 </div>
             </div>
 
-            {/* GRID CONTENT */}
             <div className={styles.contentWrapper}>
                 <div className={styles.gridContainer}>
                     {currentRecipes.length > 0 ? (
@@ -150,10 +138,8 @@ export default function RecipesPage() {
                     )}
                 </div>
 
-                {/* PAGINATION */}
                 {totalPages > 1 && (
                     <div className={styles.pagination}>
-                        {/* Önceki Sayfa Butonu */}
                         <Link
                             href={`/recipes?page=${currentPage > 1 ? currentPage - 1 : 1}`}
                             className={`${styles.pageBtn} ${currentPage === 1 ? styles.disabled : ''}`}
@@ -162,7 +148,6 @@ export default function RecipesPage() {
                             &lt;
                         </Link>
 
-                        {/* Sayfa Numaraları */}
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
                             <Link
                                 key={num}
@@ -173,7 +158,6 @@ export default function RecipesPage() {
                             </Link>
                         ))}
 
-                        {/* Sonraki Sayfa Butonu */}
                         <Link
                             href={`/recipes?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}
                             className={`${styles.pageBtn} ${currentPage === totalPages ? styles.disabled : ''}`}

@@ -1,20 +1,16 @@
-/* Genel Ayarlar */
 .container {
     min-height: 100vh;
     background-color: #f9fbf9;
-    /* Çok açık yeşilimsi gri */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
 
-/* Main Layout */
 .main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* Hero Section */
 .heroSection {
     margin-bottom: 60px;
 }

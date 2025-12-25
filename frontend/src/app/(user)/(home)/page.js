@@ -1,17 +1,11 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link"
-import Image from 'next/image'
-
 import styles from "./styles.module.css"
 import { ArrowRight, ArrowLeft } from 'lucide-react';
-
 import { Carousel } from "./_components/Carousel"
-
 import { GetRecipeOfTheDay, GetAllRecipes } from "@/services/recipes";
 import { notFound } from "next/navigation";
-
 import { Spinner } from "@/components/loading"
 
 
@@ -26,7 +20,8 @@ export default function Home() {
         async function GetAllRecipesAsync() {
             try {
                 const rotd = await GetRecipeOfTheDay()
-                setRecipeOfTheDay(rotd)
+                const rotdData = await rotd.json()
+                setRecipeOfTheDay(rotdData)
             } catch (error) {
                 notFound()
             }
@@ -57,7 +52,6 @@ export default function Home() {
         <div className={styles.container}>
 
             <main className={styles.main}>
-                {/* HERO SECTION (RECIPE OF THE DAY) */}
                 <section className={styles.heroSection}>
                     <h2 className={styles.sectionTitle}>Recipe of the Day</h2>
 
@@ -110,7 +104,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* CAROUSEL SECTION */}
                 <div className={styles.carouselWrapper}>
                     <Carousel recipes={sliderRecipes} />
                 </div>

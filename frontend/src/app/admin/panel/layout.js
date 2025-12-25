@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChefHat, PlusCircle, LayoutDashboard, Settings, Users } from 'lucide-react';
+import { ShieldUser, PlusCircle, LayoutDashboard, Settings, Users } from 'lucide-react';
 import styles from './styles.module.css';
 
 export default function AdminLayout({ children }) {
@@ -20,7 +20,7 @@ export default function AdminLayout({ children }) {
                 {/* Logo Alanı */}
                 <div className={styles.navBrand}>
                     <div className={styles.logoCircle}>
-                        <ChefHat size={20} color="#fff" />
+                        <ShieldUser size={20} color="#fff" />
                     </div>
                     <span className={styles.brandText}>Admin Panel</span>
                 </div>

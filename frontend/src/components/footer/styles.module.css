@@ -1,0 +1,150 @@
+.footer {
+  background-color: #0f3b12; 
+  color: #e8f5e9; 
+  padding: 60px 0 30px 0;
+  margin-top: auto; 
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.topSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.brandColumn {
+  flex: 2; 
+  min-width: 280px;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.brandName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brandDescription {
+  color: #a5d6a7; 
+  line-height: 1.6;
+  font-size: 0.95rem;
+  max-width: 350px;
+  margin-bottom: 20px;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.socialLink {
+  color: #a5d6a7;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.socialLink:hover {
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.linkColumn {
+  flex: 1;
+  min-width: 150px;
+}
+
+.columnTitle {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.columnTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 30px;
+  height: 2px;
+  background-color: #4caf50; 
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkList li {
+  margin-bottom: 10px;
+}
+
+.linkList a {
+  text-decoration: none;
+  color: #c8e6c9;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.linkList a:hover {
+  color: #fff;
+  padding-left: 5px; 
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+}
+
+.bottomSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.9rem;
+  color: #81c784;
+}
+
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .topSection {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .bottomSection {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .brandDescription {
+    max-width: 100%;
+  }
+}

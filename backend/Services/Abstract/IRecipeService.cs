@@ -11,7 +11,8 @@ namespace backend.Services.Abstract
 
         Task<RecipeOfTheDayDto> GetRecipeOfTheDayAsync();
 
-        Task<int> CreateRecipeAsync(RecipeCreateDto dto);
+        Task<int> CreateRecipeAsync(RecipeCreateDto dto); 
+        Task<int> CountRecipeAsync();
 
     }
 }

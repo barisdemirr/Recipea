@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation'
 import { Save, Type, Image as ImageIcon, FileText, List, AlignLeft } from 'lucide-react';
 import styles from './styles.module.css';
 import Cookies from 'js-cookie';
+import {AddRecipeService} from "@/services/recipes"
 
 export default function AddRecipe() {
     const formRef = useRef(null)
+    const [error, setError] = useState("")
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,34 +18,32 @@ export default function AddRecipe() {
         const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
 
         if (!file || file.size > 2097152 || !allowedTypes.includes(file.type)){
-            console.log("Check the form!")
+            setError("Check the image!")
             return {};
         }
 
         const token = Cookies.get("admin_token")
 
         if (!token){
-            console.log("401");
+            setError("Authentication failed!")
             return {};
         }
         
         try {
-            const res = await fetch('http://localhost:5170/api/recipes/addrecipe', {
-                method: 'POST',
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                body: formData,
-            })
+            
+            const res = await AddRecipeService(formData, token)
+            console.log(res)
+
             if (!res.ok){
-                throw new Error
+                throw new Error("Server connection failed!")
             }
 
             formRef.current.reset()
 
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
+        } catch (err) {
+            console.log(err)
+            setError(err.message)
+        }   
     };
 
 
@@ -56,6 +55,8 @@ export default function AddRecipe() {
                 <h1 className={styles.pageTitle}>Add New Recipe</h1>
                 <p className={styles.pageSubtitle}>To add a new recipe, fill out the form.</p>
             </header>
+
+            {error && <div className={styles.errorMessage}>{error}</div>}
 
             <form ref={formRef} onSubmit={handleSubmit} className={styles.formCard}>
 
